@@ -1,5 +1,5 @@
 export type Pokemon = {
-  id: number,
+  id: string,
   name: string,
   types: string[],
   baseStats: {
@@ -9,11 +9,17 @@ export type Pokemon = {
     spatk: number,
     spdef: number,
     speed: number
-  }
+  },
+  imgURL: string;
 }
 
 export type EvolutionChain = {
   id: number,
+  basePokemonName: string;
+  evolutionChains: EvolutionChains[]
+}
+
+export type EvolutionChains = {
   pokemon: {
     name: string,
     trigger: string,
@@ -35,5 +41,5 @@ export type EvolutionChain = {
       trade_species: string,
       turn_upside_down: boolean,
     }
-  }[]
+  }
 }

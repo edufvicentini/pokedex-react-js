@@ -7,8 +7,6 @@ function App() {
     <>
       <GlobalStyle />
       <Header />
-      <TypeFlag type="psychic"/>
-      
       <Main />
       
     </>

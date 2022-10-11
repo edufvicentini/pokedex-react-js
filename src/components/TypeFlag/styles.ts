@@ -7,13 +7,13 @@ interface TypeProps {
 export const Container = styled.div<TypeProps>`
   display: inline-block;
   align-items: center;
-  border-radius: 100px;
+  border-radius: 8px;
   padding: 5px 10px;
   ${props => css`
     background-color: ${props.typeColor}
   `};
   img {
-    height: 15px;
+    height: 20px;
     margin: 0 3px 0 0;
     
   }
