@@ -5,8 +5,7 @@ export const Container = styled.header`
   color: var(--nm-text-white);
   display: flex;
   height: 100%;
-  padding: 20px 100px;
-  margin: 0;
+  padding: 20px 100px 60px;
   .logo {
     display: flex;
     align-items: center;

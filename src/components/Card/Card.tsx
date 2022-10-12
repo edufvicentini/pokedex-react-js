@@ -13,10 +13,10 @@ export function Card({ pokemon }: CardProps) {
     <Container primaryType={primaryType.backgroundColor as string}>
       <div className="pokemon-information">
         <span className="pokemon-id">{pokemon.id}</span>
-        <h2>{pokemon.name}</h2>
-      </div>
-      <div className="pokemon-types">
-        {pokemon.types.map(type => <TypeFlag type={type}/>)}
+        <h2 className="pokemon-name">{pokemon.name}</h2>
+        <div className="pokemon-types">
+          {pokemon.types.map(type => <TypeFlag type={type}/>)}
+        </div>
       </div>
       <img className="pokemon-image" src={pokemon.imgURL}/>
     </Container>

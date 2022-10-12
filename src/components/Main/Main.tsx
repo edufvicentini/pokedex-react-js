@@ -23,7 +23,7 @@ export function Main() {
   }, []);
 
   async function getPokemonList() {
-    const pokemonData: Array<pokemonRequestDTO> = await api.get('https://pokeapi.co/api/v2/pokemon?limit=1000&offset=0')
+    const pokemonData: Array<pokemonRequestDTO> = await api.get('https://pokeapi.co/api/v2/pokemon?limit=20&offset=500')
       .then(res => { return res.data.results });
 
     const pokemonSpecificData = await Promise.all(pokemonData.map(async pokemon => {

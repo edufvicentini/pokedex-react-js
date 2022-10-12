@@ -35,31 +35,31 @@ export const pokemonTypes: PokemonType[] = [
     type: 'flying',
     iconPath: flyingIcon,
     color: '#5C9AEA',
-    backgroundColor: '#FDAF76'
+    backgroundColor: '#A2C6F3'
   },
   {
     type: 'bug',
     iconPath: bugIcon,
-    color: '#7DB826',
-    backgroundColor: '#FDAF76'
+    color: '#78BD13',
+    backgroundColor: '#97C356'
   },
   {
     type: 'dark',
     iconPath: darkIcon,
-    color: '#656174',
-    backgroundColor: '#FDAF76'
+    color: '#3D3A48',
+    backgroundColor: '#7E7E7E'
   },
   {
     type: 'dragon',
     iconPath: dragonIcon,
-    color: '#2875CE',
-    backgroundColor: '#FDAF76'
+    color: '#0972EC',
+    backgroundColor: '#619ADC'
   },
   {
     type: 'electric',
     iconPath: electricIcon,
-    color: '#DCC425',
-    backgroundColor: '#FDAF76'
+    color: '#CCB51B',
+    backgroundColor: '#E5D063'
   },
   {
     type: 'grass',
@@ -70,67 +70,67 @@ export const pokemonTypes: PokemonType[] = [
   {
     type: 'poison',
     iconPath: poisonIcon,
-    color: '#A754AE',
-    backgroundColor: '#FDAF76'
+    color: '#8D2A95',
+    backgroundColor: '#B787BB'
   },
   {
     type: 'water',
     iconPath: waterIcon,
     color: '#2A9BDD',
-    backgroundColor: '#FDAF76'
+    backgroundColor: '#67B7E5'
   },
   {
     type: 'fairy',
     iconPath: fairyIcon,
-    color: '#FF92FF',
-    backgroundColor: '#FDAF76'
+    color: '#E57AE5',
+    backgroundColor: '#FFADFF'
   },
   {
     type: 'fighting',
     iconPath: fightingIcon,
     color: '#FF366B',
-    backgroundColor: '#FDAF76'
+    backgroundColor: '#FF6D93'
   },
   {
     type: 'ghost',
     iconPath: ghostIcon,
-    color: '#627BFF',
-    backgroundColor: '#FDAF76'
+    color: '#7747FF',
+    backgroundColor: '#9A76FF'
   },
   {
     type: 'ground',
     iconPath: groundIcon,
     color: '#FF7D2A',
-    backgroundColor: '#FDAF76'
+    backgroundColor: '#FF9958'
   },
   {
     type: 'ice',
     iconPath: iceIcon,
-    color: '#43E9CD',
-    backgroundColor: '#FDAF76'
+    color: '#27DABC',
+    backgroundColor: '#AFF2E7'
   },
   {
     type: 'normal',
     iconPath: normalIcon,
-    color: '#9FA39D',
-    backgroundColor: '#FDAF76'
+    color: '#858983',
+    backgroundColor: '#D6D6D6'
   },
   {
     type: 'psychic',
     iconPath: psychicIcon,
     color: '#FF7A73',
-    backgroundColor: '#FDAF76'
+    backgroundColor: '#FFA9A5'
   },
   {
     type: 'rock',
     iconPath: rockIcon,
-    color: '#DCC472',
-    backgroundColor: '#FDAF76'
+    color: '#DBB83E',
+    backgroundColor: '#E1CF8F'
   },
   {
     type: 'steel',
     iconPath: steelIcon,
     color: '#34A9C4',
-    backgroundColor: '#FDAF76'
+    backgroundColor: '#6BBFD1'
   }
 ];
