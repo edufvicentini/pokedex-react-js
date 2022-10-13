@@ -41,9 +41,9 @@ export default createGlobalStyle`
     /* --type-ground-color: #FF7D2A;
     --type-ice-color: #43E9CD;
     --type-normal-color: #9FA39D; */
-    --type-psychic-color: #FF7A73;
+    /* --type-psychic-color: #FF7A73;
     --type-rock-color: #DCC472;
-    --type-steel-color: #34A9C4;
+    --type-steel-color: #34A9C4; */
   }
 
   @media (max-width: 1080px) {

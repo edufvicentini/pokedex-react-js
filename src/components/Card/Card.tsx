@@ -15,7 +15,7 @@ export function Card({ pokemon }: CardProps) {
         <span className="pokemon-id">{pokemon.id}</span>
         <h2 className="pokemon-name">{pokemon.name}</h2>
         <div className="pokemon-types">
-          {pokemon.types.map(type => <TypeFlag type={type}/>)}
+          {pokemon.types.map(type => <TypeFlag key={type} type={type}/>)}
         </div>
       </div>
       <img className="pokemon-image" src={pokemon.imgURL}/>

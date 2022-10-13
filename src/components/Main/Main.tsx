@@ -3,6 +3,8 @@ import {  useEffect, useState } from "react";
 import { api } from "../../services/axios";
 import { EvolutionChain, Pokemon } from "../../Types/Entities";
 import { Card } from "../Card/Card";
+import { useSelectedGeneration } from "../../hooks/useGeneration";
+import { useSearchTerm } from "../../hooks/useSearchTerm";
 
 interface pokemonRequestDTO {
   name: string,
@@ -14,16 +16,34 @@ interface pokemonEvolutionDTO {
 }
 
 export function Main() {
-  const [pokemonList, SetPokemonList] = useState([] as Pokemon[]);
+  const [ pokemonList, SetPokemonList ] = useState([] as Pokemon[]);
+  const [ filteredPokemonList, SetFilteredPokemonList ] = useState([] as Pokemon[]); 
+  const { selectedGeneration } = useSelectedGeneration();
+  const { searchTerm } = useSearchTerm();
   // const [pokemonEvolutionChains, SetPokemonEvolutionChains] = useState([] as EvolutionChain[]);
 
   useEffect(() => {
     getPokemonList();  
-    // getPokemonEvolutionChains();
-  }, []);
+    SetFilteredPokemonList(pokemonList);
+  }, [selectedGeneration]);
+
+  useEffect(() => { 
+    if (searchTerm) {
+      const newList = pokemonList.filter(pokemon => pokemon.name.includes(searchTerm) || pokemon.types.find(type => type.includes(searchTerm)));
+
+      SetFilteredPokemonList(newList);
+    } else {
+      SetFilteredPokemonList(pokemonList);
+    }
+  }, [searchTerm])
 
   async function getPokemonList() {
-    const pokemonData: Array<pokemonRequestDTO> = await api.get('https://pokeapi.co/api/v2/pokemon?limit=20&offset=500')
+    const pokemonData: Array<pokemonRequestDTO> = await api.get('https://pokeapi.co/api/v2/pokemon', {
+      params: {
+        limit: selectedGeneration.pokemonQuantity,
+        offset: selectedGeneration.minOffset
+      }
+    })
       .then(res => { return res.data.results });
 
     const pokemonSpecificData = await Promise.all(pokemonData.map(async pokemon => {
@@ -60,6 +80,7 @@ export function Main() {
     }) )
 
     SetPokemonList(pokemonSpecificData);
+    SetFilteredPokemonList(pokemonSpecificData)
   }
   
   async function getPokemonEvolutionChains() {
@@ -169,12 +190,12 @@ export function Main() {
   return (
     <Container>
       <div className="main">
-        <ul className="card-collection">
-        {pokemonList.map(item => {
+        {filteredPokemonList.length > 0 ? <ul className="card-collection">
+        {filteredPokemonList.map(item => {
            return <Card key={item.id} pokemon={item}/>
            }
         )}
-        </ul>
+        </ul> : <p className="no-pokemon-found">No pokemon found.</p> }
         
       </div>
     </Container>

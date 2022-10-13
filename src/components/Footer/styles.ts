@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.footer`
   background-color: var(--nm-background);
   font-size: 0.8rem;
-  height: 100%;
+  height: 100px;
   padding: 15px 0;
   color: gray;
   border-top: solid 1px #222;
