@@ -36,7 +36,7 @@ export function Header() {
         })}
       </select>
 
-        <input className="search-input-box" onChange={handleUpdateSearchTerm} type="text" placeholder="Enter a Pokemon name here"/> 
+        <input className="search-input-box" onChange={handleUpdateSearchTerm} type="text" placeholder="Search here"/> 
         <img className="search-input-icon" src={searchIcon} />
       
     </Container>

@@ -5,6 +5,7 @@ import { EvolutionChain, Pokemon } from "../../Types/Entities";
 import { Card } from "../Card/Card";
 import { useSelectedGeneration } from "../../hooks/useGeneration";
 import { useSearchTerm } from "../../hooks/useSearchTerm";
+import { TailSpin } from 'react-loader-spinner';
 
 interface pokemonRequestDTO {
   name: string,
@@ -17,6 +18,7 @@ interface pokemonEvolutionDTO {
 
 export function Main() {
   const [ pokemonList, SetPokemonList ] = useState([] as Pokemon[]);
+  const [ isLoading, SetIsLoading ] = useState(false as boolean);
   const [ filteredPokemonList, SetFilteredPokemonList ] = useState([] as Pokemon[]); 
   const { selectedGeneration } = useSelectedGeneration();
   const { searchTerm } = useSearchTerm();
@@ -25,6 +27,7 @@ export function Main() {
   useEffect(() => {
     getPokemonList();  
     SetFilteredPokemonList(pokemonList);
+    
   }, [selectedGeneration]);
 
   useEffect(() => { 
@@ -38,6 +41,8 @@ export function Main() {
   }, [searchTerm])
 
   async function getPokemonList() {
+    SetIsLoading(true);
+    console.log(isLoading);
     const pokemonData: Array<pokemonRequestDTO> = await api.get('https://pokeapi.co/api/v2/pokemon', {
       params: {
         limit: selectedGeneration.pokemonQuantity,
@@ -78,7 +83,7 @@ export function Main() {
 
       return pokemonData
     }) )
-
+    SetIsLoading(false);
     SetPokemonList(pokemonSpecificData);
     SetFilteredPokemonList(pokemonSpecificData)
   }
@@ -190,7 +195,20 @@ export function Main() {
   return (
     <Container>
       <div className="main">
-        {filteredPokemonList.length > 0 ? <ul className="card-collection">
+        {isLoading ? 
+        <div className="spinner">
+        <TailSpin 
+          height="80"
+          width="80"
+          color="gray"
+          ariaLabel="tail-spin-loading"
+          radius="1"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+          /></div> :
+        filteredPokemonList.length > 0 ? 
+        <ul className="card-collection">
         {filteredPokemonList.map(item => {
            return <Card key={item.id} pokemon={item}/>
            }

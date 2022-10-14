@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
-@media (max-width: 720px) {
+@media (min-width: 320px) and (max-width: 961px) {
     background-color: var(--nm-background);
     color: var(--nm-text-white);
     display: flex;
@@ -28,7 +28,7 @@ export const Container = styled.header`
     .gen-icon {
       height: 2.5rem;
       position: relative;
-      left: 40px;
+      left: 2rem
     }
     
     .gen-selector {
@@ -44,6 +44,7 @@ export const Container = styled.header`
 
     .search-input-box {
       padding-left: 10px;
+      margin-top: 10px;
       flex-grow: 3;
       border: 0;
       border-radius: 50px;
@@ -63,10 +64,11 @@ export const Container = styled.header`
       align-self: center;
       position: relative;
       left: -40px;
+      margin-top: 10px;
     }    
   };
 
-  @media (min-width: 961px) {
+  @media (min-width: 600px) {
     background-color: var(--nm-background);
     color: var(--nm-text-white);
     display: flex;
@@ -92,7 +94,6 @@ export const Container = styled.header`
       height: 2.5rem;
       align-self: center;
       position: relative;
-      left: 40px;
     }
     
     .gen-selector {

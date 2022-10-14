@@ -5,7 +5,7 @@ interface CardProps {
 }
 
 export const Container = styled.li<CardProps>`
-  @media (min-width: 320px) {
+  @media (min-width: 320px) and (max-width: 961px) {
     height: 9.3rem;
     width: 12rem;
     border-radius: 6px;
@@ -15,7 +15,7 @@ export const Container = styled.li<CardProps>`
     ${props => css`
       background-color: ${props.primaryType};
     `};
-
+    
     .pokemon-information {
       padding-top: 3rem;
     }
@@ -61,20 +61,16 @@ export const Container = styled.li<CardProps>`
     height: 8.3rem;
     width: 20rem;
     border-radius: 6px;
-    padding: 20px;
+    padding: 15px;
     display: grid;
     grid-template-columns: 60% 40%; 
+    
     ${props => css`
       background-color: ${props.primaryType};
     `};
 
-    .pokemon-id {
-      color: black;
-      font-weight: 600;
-      margin-bottom: 1px;
-    }
 
-    h2 {
+    .pokemon-name {
       color: white;
       font-size: 1.6rem;
       ::first-letter {      
@@ -94,10 +90,17 @@ export const Container = styled.li<CardProps>`
       text-shadow: 2px 0 black, -2px 0 black, 0 2px black, 0 -2px black,
               2px 2px black, -2px -2px black, 2px -2px black, -2px 2px black;
       margin-bottom: 10px;
+    
     }
     
     :hover {
       cursor: pointer;
     }
-  }
+ 
+    .pokemon-id {
+      color: black;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+ }
 `
