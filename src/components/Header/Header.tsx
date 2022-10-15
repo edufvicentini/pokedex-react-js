@@ -7,11 +7,10 @@ import { useSelectedGeneration } from "../../hooks/useGeneration";
 import { useSearchTerm } from "../../hooks/useSearchTerm";
 
 export function Header() {
-  const [generationIcon, setGenerationIcon] = useState('');
   const { selectedGeneration, handleSetSelectedGeneration } = useSelectedGeneration();
   const { handleSetSearchTerm } = useSearchTerm();
   useEffect(() => {
-    handleSetSelectedGeneration(0);
+    handleSetSelectedGeneration(1);
   }, [])
 
   function handleSelectGeneration(e:BaseSyntheticEvent) {
@@ -19,7 +18,7 @@ export function Header() {
   };
 
   function handleUpdateSearchTerm(e:BaseSyntheticEvent) {
-    handleSetSearchTerm(e.target.value);
+    handleSetSearchTerm(e.target.value.toLowerCase());
   }
 
   return (
@@ -30,7 +29,7 @@ export function Header() {
       </div>
   
       <img className="gen-icon" src={selectedGeneration.pokedexIcon}></img>
-      <select onChange= {handleSelectGeneration} placeholder="Select a Generation" className="gen-selector" name="generation" id="generation">
+      <select defaultValue={1} onChange= {handleSelectGeneration} placeholder="Select a Generation" className="gen-selector" name="generation" id="generation">
         {pokemonGenerations.map((gen) => {
           return <option key={gen.id} value={gen.id}>{gen.text}</option>
         })}

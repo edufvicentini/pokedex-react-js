@@ -5,14 +5,13 @@ export const Container = styled.main`
     background-color: var(--nm-background);
     min-height: calc(100vh - 120px - 100px);
     width: 100%;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 50px 20px 50px 20px;
 
     .card-collection {
     display: grid;
     justify-items: center;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 10px;
+    /* grid-column-gap: -30px;; */
     grid-row-gap: 60px;
     list-style: none;
     }
@@ -29,6 +28,12 @@ export const Container = styled.main`
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .loader {
+      background-color: red;
+      height: 30px;
+      width: 100%;
     }
 
   }

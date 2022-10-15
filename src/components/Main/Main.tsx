@@ -1,5 +1,5 @@
 import { Container } from "./styles";
-import {  useEffect, useState } from "react";
+import {  useEffect, useRef, useState } from "react";
 import { api } from "../../services/axios";
 import { EvolutionChain, Pokemon } from "../../Types/Entities";
 import { Card } from "../Card/Card";
@@ -17,180 +17,107 @@ interface pokemonEvolutionDTO {
 }
 
 export function Main() {
-  const [ pokemonList, SetPokemonList ] = useState([] as Pokemon[]);
+  const [ pokemonData, SetPokemonData ] = useState([] as Pokemon[]);
+  const [ pokemonList, SetPokemonList ] = useState([] as pokemonRequestDTO[])
   const [ isLoading, SetIsLoading ] = useState(false as boolean);
-  const [ filteredPokemonList, SetFilteredPokemonList ] = useState([] as Pokemon[]); 
+  const [ filteredPokemonData, SetFilteredPokemonData ] = useState([] as Pokemon[]); 
+  const [ currentFetchedIndex, SetCurrentFetchedIndex] = useState(0 as number);
   const { selectedGeneration } = useSelectedGeneration();
   const { searchTerm } = useSearchTerm();
   // const [pokemonEvolutionChains, SetPokemonEvolutionChains] = useState([] as EvolutionChain[]);
+  const loader = useRef(null);
 
+  // Change generation for filter;
   useEffect(() => {
-    getPokemonList();  
-    SetFilteredPokemonList(pokemonList);
-    
+    SetIsLoading(true);
+    SetCurrentFetchedIndex(0);    
+    const fetchData = async () => {
+      const fetchData: Array<pokemonRequestDTO> = await api.get('https://pokeapi.co/api/v2/pokemon', {
+        params: {
+          limit: selectedGeneration.pokemonQuantity,
+          offset: selectedGeneration.minOffset
+        }
+      })
+        .then(res => { return res.data.results });
+      
+      SetPokemonList(fetchData);
+      fetchEachPokemon(fetchData).catch((e) => console.log(e));
+    }
+
+    const fetchEachPokemon = async (list: pokemonRequestDTO[]) => {
+      const pokemonSpecificData = await Promise.all(list.map(async pokemon => {
+        const data = await api.get(pokemon.url)
+                     .then(res => { return res.data })
+                     
+        // types
+        const types = data.types.map((typeData: { type: { name: any; }; }) => typeData.type.name);
+        
+        // stats
+        const hpStat = data.stats.find((statData: { stat: { name: string; }; }) => statData.stat.name === 'hp');
+        const atkStat = data.stats.find((statData: { stat: { name: string; }; }) => statData.stat.name === 'attack');
+        const defStat = data.stats.map((statData: { stat: { name: string; }; }) => statData.stat.name === 'defense');
+        const spatkStat = data.stats.map((statData: { stat: { name: string; }; }) => statData.stat.name === 'special-attack');
+        const spdefStat = data.stats.map((statData: { stat: { name: string; }; }) => statData.stat.name === 'special-defense');
+        const speedStat = data.stats.map((statData: { stat: { name: string; }; }) => statData.stat.name === 'speed');
+  
+        const pokemonData = {
+            id: data.id,
+            name: data.species.name,
+            description: data.name,
+            types: types,
+            baseStats: {
+              hp: hpStat.base_stat,
+              atk: atkStat.base_stat,
+              def: defStat.base_stat,
+              spatk: spatkStat.base_stat,
+              spdef: spdefStat.base_stat,
+              speed: speedStat.base_stat
+            },
+            imgURL: data.sprites.other['official-artwork'].front_default
+          };
+          return pokemonData;
+        }))
+        SetPokemonData(pokemonSpecificData);
+        SetFilteredPokemonData(pokemonSpecificData);
+        SetIsLoading(false);
+    }
+    fetchData().catch((e) => console.log(e));
+    SetCurrentFetchedIndex((current) => current + 20);
   }, [selectedGeneration]);
 
+  // Search input
   useEffect(() => { 
     if (searchTerm) {
-      const newList = pokemonList.filter(pokemon => pokemon.name.includes(searchTerm) || pokemon.types.find(type => type.includes(searchTerm)));
+      const newList = pokemonData.filter(pokemon => pokemon.description.includes(searchTerm) || pokemon.types.find(type => type.includes(searchTerm)));
 
-      SetFilteredPokemonList(newList);
+      SetFilteredPokemonData(newList);
     } else {
-      SetFilteredPokemonList(pokemonList);
+      SetFilteredPokemonData(pokemonData);
     }
-  }, [searchTerm])
+  }, [searchTerm]);
 
-  async function getPokemonList() {
-    SetIsLoading(true);
-    console.log(isLoading);
-    const pokemonData: Array<pokemonRequestDTO> = await api.get('https://pokeapi.co/api/v2/pokemon', {
-      params: {
-        limit: selectedGeneration.pokemonQuantity,
-        offset: selectedGeneration.minOffset
-      }
-    })
-      .then(res => { return res.data.results });
+  // Loader Observer
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 0
+    };
+    const observer = new IntersectionObserver((entities) => {
+      const target = entities[0];
 
-    const pokemonSpecificData = await Promise.all(pokemonData.map(async pokemon => {
-      const data = await api.get(pokemon.url)
-                   .then(res => { return res.data })
-                   
-      // types
-      const types = data.types.map((typeData: { type: { name: any; }; }) => typeData.type.name);
-      
-      // stats
-      const hpStat = data.stats.find((statData: { stat: { name: string; }; }) => statData.stat.name === 'hp');
-      const atkStat = data.stats.find((statData: { stat: { name: string; }; }) => statData.stat.name === 'attack');
-      const defStat = data.stats.map((statData: { stat: { name: string; }; }) => statData.stat.name === 'defense');
-      const spatkStat = data.stats.map((statData: { stat: { name: string; }; }) => statData.stat.name === 'special-attack');
-      const spdefStat = data.stats.map((statData: { stat: { name: string; }; }) => statData.stat.name === 'special-defense');
-      const speedStat = data.stats.map((statData: { stat: { name: string; }; }) => statData.stat.name === 'speed');
-
-      const pokemonData = {
-          id: data.id,
-          name: data.species.name,
-          types: types,
-          baseStats: {
-            hp: hpStat.base_stat,
-            atk: atkStat.base_stat,
-            def: defStat.base_stat,
-            spatk: spatkStat.base_stat,
-            spdef: spdefStat.base_stat,
-            speed: speedStat.base_stat
-          },
-          imgURL: data.sprites.other['official-artwork'].front_default
+      if (target.isIntersecting) {
+        // console.log(target.isIntersecting)
+        SetCurrentFetchedIndex((current) => current + 20);
       };
+    }, options);
 
-      return pokemonData
-    }) )
-    SetIsLoading(false);
-    SetPokemonList(pokemonSpecificData);
-    SetFilteredPokemonList(pokemonSpecificData)
-  }
-  
-  async function getPokemonEvolutionChains() {
-    const evolutionData: Array<pokemonEvolutionDTO> = await api.get('https://pokeapi.co/api/v2/evolution-chain?offset=0&limit=10')
-    .then(res => { return res.data.results });
-
-    const evolutionChains = await Promise.all(evolutionData.map(async item => {
-      return await api.get(item.url).then(res => {return res.data} )  
-    }))
-
-    // const evolutionChainsArray:EvolutionChain[] = evolutionChains.map((evo) => {
-    //   const chain = evo.chain;
-    //   const firstForm: EvolutionChainPokemon = {
-    //     evolutionChains: {
-    //       name: chain.species.name,
-    //       trigger: '',
-    //       evolutionDetails: {
-    //         gender: '',
-    //         held_item: '',
-    //         known_move: '',
-    //         known_move_type: '',
-    //         location: '',
-    //         min_level: 0,
-    //         min_happiness: 0,
-    //         min_beauty:0,
-    //         min_affection: 0,
-    //         needs_overworld_rain: false,
-    //         party_species: '',
-    //         party_type: '',
-    //         relative_physical_stats: 0,
-    //         time_of_day: '',
-    //         trade_species:'',
-    //         turn_upside_down: false,
-    //       }
-    //     }
-    //   }
-      
-    //   const firstEvolution = chain.evolves_to;
-      
-    //   const evolutions = firstEvolution ?
-    //     firstEvolution.map((first) => {
-    //     const firstEvoChain:EvolutionChainPokemon = {
-    //       evolutionChains: {
-    //         name: first.species.name,
-    //         trigger: first.evolution_details[0].trigger.name,
-    //         evolutionDetails: {
-    //           gender: first.evolution_details[0].gender,
-    //           held_item: first.evolution_details[0].held_item,
-    //           known_move: first.evolution_details[0].known_move,
-    //           known_move_type: first.evolution_details[0].known_move_type,
-    //           location: first.evolution_details[0].location,
-    //           min_level: first.evolution_details[0].min_level,
-    //           min_happiness: first.evolution_details[0].min_happiness,
-    //           min_beauty: first.evolution_details[0].min_beauty,
-    //           min_affection: first.evolution_details[0].min_affection,
-    //           needs_overworld_rain: first.evolution_details[0].needs_overworld_rain,
-    //           party_species: first.evolution_details[0].party_species,
-    //           party_type: first.evolution_details[0].party_type,
-    //           relative_physical_stats: first.evolution_details[0].relative_physical_stats,
-    //           time_of_day: first.evolution_details[0].time_of_day,
-    //           trade_species: first.evolution_details[0].trade_species,
-    //           turn_upside_down: first.evolution_details[0].turn_upside_down,
-    //           }
-    //         }  
-    //       };
-          
-    //     const secondEvolution = first?.evolves_to; 
-      
-    //     const secondEvoChain: EvolutionChainPokemon = secondEvolution ? secondEvolution.map((second) => {
-    //       return {
-    //         pokemon: {
-    //           name: second.species.name,
-    //           trigger: second.evolution_details[0].trigger.name,
-    //           evolutionDetails: {
-    //             gender: second.evolution_details[0].gender,
-    //             held_item: second.evolution_details[0].held_item,
-    //             known_move: second.evolution_details[0].known_move,
-    //             known_move_type: second.evolution_details[0].known_move_type,
-    //             location: second.evolution_details[0].location,
-    //             min_level: second.evolution_details[0].min_level,
-    //             min_happiness: second.evolution_details[0].min_happiness,
-    //             min_beauty: second.evolution_details[0].min_beauty,
-    //             min_affection: second.evolution_details[0].min_affection,
-    //             needs_overworld_rain: second.evolution_details[0].needs_overworld_rain,
-    //             party_species: second.evolution_details[0].party_species,
-    //             party_type: second.evolution_details[0].party_type,
-    //             relative_physical_stats: second.evolution_details[0].relative_physical_stats,
-    //             time_of_day: second.evolution_details[0].time_of_day,
-    //             trade_species: second.evolution_details[0].trade_species,
-    //             turn_upside_down: second.evolution_details[0].turn_upside_down,
-    //             }
-    //           }  
-    //         }
-    //     }) : null;
-    //     return [firstForm, firstEvoChain, secondEvoChain]}):undefined;
-    //   return {
-    //     id: evo.id,
-    //     basePokemonName: chain.species.name,
-    //     pokemon: evolutions
-    //   } as EvolutionChain
-    // })
-    // console.log(evolutionChainsArray)
+    if(loader.current)
+      observer.observe(loader.current);
     
-    // .filter(value => value.pokemon?.name !== undefined)   
-  }
+    return () => observer.disconnect();
+    
+  }, []);
 
   return (
     <Container>
@@ -207,15 +134,17 @@ export function Main() {
           wrapperClass=""
           visible={true}
           /></div> :
-        filteredPokemonList.length > 0 ? 
+        filteredPokemonData.length > 0 ? 
         <ul className="card-collection">
-        {filteredPokemonList.map(item => {
-           return <Card key={item.id} pokemon={item}/>
-           }
+        {filteredPokemonData.map((item, index) => {
+          if (index < currentFetchedIndex)
+          return <Card key={item.id} pokemon={item}/>
+          }
         )}
         </ul> : <p className="no-pokemon-found">No pokemon found.</p> }
         
       </div>
+      <div ref={loader} className="loader"></div>
     </Container>
   )
 }

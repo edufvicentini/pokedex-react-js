@@ -22,7 +22,7 @@ export const pokemonGenerations = [
     id: 0,
     text: 'All Generations',
     pokedexIcon: pikachuIcon,
-    pokemonQuantity: 20,
+    pokemonQuantity: 2000,
     minOffset: 0,
     maxRecord: 0
   },

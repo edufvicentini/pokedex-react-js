@@ -1,6 +1,7 @@
 export type Pokemon = {
   id: string,
   name: string,
+  description: string,
   types: string[],
   baseStats: {
     hp: number,
