@@ -28,13 +28,7 @@ export const Container = styled.main`
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    .loader {
-      background-color: red;
-      height: 30px;
-      width: 100%;
-    }
+    };
 
   }
 
