@@ -1,6 +1,27 @@
 import styled from "styled-components";
 
 export const Container = styled.main`
+
+
+  .loader {
+    position: relative;
+    top: -250x;
+    /* height: 10px;
+    background-color: aliceblue; */
+  }
+
+  .scrollUpButtonObserver {
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    top: 3000px;
+  }
+
+  .scrolledUpObserver {
+    position: absolute;
+    top: 100px;
+  }
+
   @media (min-width: 320px) and (max-width: 961px) {
     background-color: var(--nm-background);
     min-height: calc(100vh - 120px - 100px);
@@ -29,7 +50,6 @@ export const Container = styled.main`
       justify-content: center;
       align-items: center;
     };
-
   }
 
   @media (min-width: 600px) {
@@ -72,14 +92,6 @@ export const Container = styled.main`
       justify-content: center;
       align-items: center;
     }
-
-    .loader {
-      position: relative;
-      top: -300px;
-      /* height: 10px;
-      background-color: aliceblue; */
-    }
-
   }
   
 `

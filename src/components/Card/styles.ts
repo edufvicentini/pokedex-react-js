@@ -7,7 +7,7 @@ interface CardProps {
 export const Container = styled.li<CardProps>`
   @media (min-width: 320px) and (max-width: 961px) {
     height: 9.3rem;
-    width: 12rem;
+    width: 12.5rem;
     border-radius: 6px;
     padding: 10px;
     display: grid;

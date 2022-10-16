@@ -16,9 +16,13 @@ interface pokemonEvolutionDTO {
   url: string
 }
 
-export function Main() {
+interface mainProps {
+  SetIsScrollUpButtonVisible: (state: boolean) => void;
+}
+
+export function Main({ SetIsScrollUpButtonVisible }: mainProps) {
   const [ pokemonData, SetPokemonData ] = useState([] as Pokemon[]);
-  const [ pokemonList, SetPokemonList ] = useState([] as pokemonRequestDTO[])
+  const [ pokemonList, SetPokemonList ] = useState([] as pokemonRequestDTO[]);
   const [ isLoading, SetIsLoading ] = useState(false as boolean);
   const [ filteredPokemonData, SetFilteredPokemonData ] = useState([] as Pokemon[]); 
   const [ currentFetchedIndex, SetCurrentFetchedIndex] = useState(0 as number);
@@ -26,10 +30,13 @@ export function Main() {
   const { searchTerm } = useSearchTerm();
   // const [pokemonEvolutionChains, SetPokemonEvolutionChains] = useState([] as EvolutionChain[]);
   const loader = useRef(null);
+  const scrollUpButtonObserver = useRef(null);
+  const scrolledUpObserver = useRef(null);
 
   // Change generation for filter;
   useEffect(() => {
     SetIsLoading(true);
+    SetIsScrollUpButtonVisible(false);
     SetCurrentFetchedIndex(0);    
     const fetchData = async () => {
       const fetchData: Array<pokemonRequestDTO> = await api.get('https://pokeapi.co/api/v2/pokemon', {
@@ -104,17 +111,33 @@ export function Main() {
       threshold: 0
     };
     const observer = new IntersectionObserver((entities) => {
-      const target = entities[0];
-
-      if (target.isIntersecting) {
-        // console.log(target.isIntersecting)
+      const loader = entities.find(entity => entity.target.className === 'loader');
+      const scrollUpButtonObserver = entities.find(entity => entity.target.className === 'scrollUpButtonObserver');
+      const scrolledUpObserver = entities.find(entity => entity.target.className === 'scrolledUpObserver');
+      
+      if (loader?.isIntersecting) {
         SetCurrentFetchedIndex((current) => current + 20);
       };
+
+      if (scrollUpButtonObserver?.isIntersecting) {
+        SetIsScrollUpButtonVisible(true);
+      };
+
+      if (scrolledUpObserver?.isIntersecting) {
+        SetIsScrollUpButtonVisible(false);
+      };
+
+
     }, options);
 
     if(loader.current)
       observer.observe(loader.current);
     
+    if(scrollUpButtonObserver.current)
+      observer.observe(scrollUpButtonObserver.current);
+
+    if(scrolledUpObserver.current)
+      observer.observe(scrolledUpObserver.current);
     return () => observer.disconnect();
     
   }, []);
@@ -145,6 +168,8 @@ export function Main() {
         
       </div>
       <div ref={loader} className="loader"></div>
+      <div ref={scrollUpButtonObserver} className="scrollUpButtonObserver"></div>
+      <div ref={scrolledUpObserver} className="scrolledUpObserver"></div>
     </Container>
   )
 }
