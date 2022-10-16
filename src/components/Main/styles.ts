@@ -26,7 +26,7 @@ export const Container = styled.main`
     background-color: var(--nm-background);
     min-height: calc(100vh - 120px - 100px);
     width: 100%;
-    padding: 50px 20px 50px 20px;
+    padding: 50px 8px 50px 8px;
 
     .card-collection {
     display: grid;
