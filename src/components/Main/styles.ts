@@ -73,6 +73,13 @@ export const Container = styled.main`
       align-items: center;
     }
 
+    .loader {
+      position: relative;
+      top: -300px;
+      /* height: 10px;
+      background-color: aliceblue; */
+    }
+
   }
   
 `
