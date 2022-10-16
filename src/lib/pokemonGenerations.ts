@@ -15,31 +15,27 @@ export interface GenerationType {
   pokedexIcon: string;
   pokemonQuantity: number;
   minOffset: number;
-  maxRecord: number;
 }
 export const pokemonGenerations = [
   {
     id: 0,
-    text: 'All Generations',
+    text: 'All Regions',
     pokedexIcon: pikachuIcon,
     pokemonQuantity: 2000,
-    minOffset: 0,
-    maxRecord: 0
+    minOffset: 0
   },
   {
     id: 1,
     text: 'I - Kanto',
     pokedexIcon: kantoIcon,
     pokemonQuantity: 151,
-    minOffset: 0,
-    maxRecord: 151
+    minOffset: 0
   },
   {
     id: 2,
     text: 'II - Johto',
     pokedexIcon: johtoIcon,
     minOffset: 151,
-    maxRecord: 251,
     pokemonQuantity: 100
   },
   {
@@ -47,7 +43,6 @@ export const pokemonGenerations = [
     text: 'III - Hoenn',
     pokedexIcon: hoennIcon,
     minOffset: 251,
-    maxRecord: 386,
     pokemonQuantity: 135
   },
   {
@@ -55,7 +50,6 @@ export const pokemonGenerations = [
     text: 'IV - Sinnoh',
     pokedexIcon: sinnohIcon,
     minOffset: 386,
-    maxRecord: 494,
     pokemonQuantity: 108
   },
   {
@@ -63,7 +57,6 @@ export const pokemonGenerations = [
     text: 'V - Unova',
     pokedexIcon: unovaIcon,
     minOffset: 494,
-    maxRecord: 649,
     pokemonQuantity: 155
   },
   {
@@ -71,7 +64,6 @@ export const pokemonGenerations = [
     text: 'VI - Kalos',
     pokedexIcon: kalosIcon,
     minOffset: 649,
-    maxRecord: 721,
     pokemonQuantity: 72
   },
   {
@@ -79,7 +71,6 @@ export const pokemonGenerations = [
     text: 'VII - Alola',
     pokedexIcon: alolaIcon,
     minOffset: 721,
-    maxRecord: 808,
     pokemonQuantity: 88
   },
   {
@@ -87,7 +78,6 @@ export const pokemonGenerations = [
     text: 'VIII - Galar',
     pokedexIcon: galarIcon,
     minOffset: 809,
-    maxRecord: 890,
     pokemonQuantity: 81
   },
   {
@@ -95,7 +85,6 @@ export const pokemonGenerations = [
     text: 'IX - Hisui',
     pokedexIcon: hisuiIcon,
     minOffset: 890,
-    maxRecord: 904,
     pokemonQuantity: 14
   }
 ]

@@ -5,14 +5,6 @@ interface ButtonProps {
 }
 
 export const Container = styled.button<ButtonProps>`
-  @media (min-width: 320px) and (max-width: 961px) {
-    
-  }
-
-  @media (min-width: 600px) {
-  }
-  
-  /* @media (min-width: 961px) { */
   @media (min-width: 0px) {  
   width: 50px;
     height: 50px;

@@ -26,7 +26,7 @@ export const Container = styled.header`
     }
 
     .gen-icon {
-      height: 2.5rem;
+      height: 2.3rem;
       position: relative;
       left: 2rem
     }
@@ -39,12 +39,12 @@ export const Container = styled.header`
       font-weight: 500;
       text-align:  center;
       color: var(--nm-text-white);
-      padding-bottom: 10px;
     }
 
     .search-input-box {
-      padding-left: 10px;
+      padding-left: 15px;
       margin-top: 10px;
+      height: 35px;
       flex-grow: 3;
       border: 0;
       border-radius: 50px;
@@ -63,7 +63,7 @@ export const Container = styled.header`
       height: 1.5rem;
       align-self: center;
       position: relative;
-      left: -40px;
+      left: -35px;
       margin-top: 10px;
     }    
   };
