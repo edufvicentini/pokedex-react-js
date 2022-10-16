@@ -22,9 +22,8 @@ interface mainProps {
 
 export function Main({ SetIsScrollUpButtonVisible }: mainProps) {
   const [ pokemonData, SetPokemonData ] = useState([] as Pokemon[]);
-  const [ pokemonList, SetPokemonList ] = useState([] as pokemonRequestDTO[]);
-  const [ isLoading, SetIsLoading ] = useState(false as boolean);
   const [ filteredPokemonData, SetFilteredPokemonData ] = useState([] as Pokemon[]); 
+  const [ isLoading, SetIsLoading ] = useState(false as boolean);
   const [ currentFetchedIndex, SetCurrentFetchedIndex] = useState(0 as number);
   const { selectedGeneration } = useSelectedGeneration();
   const { searchTerm } = useSearchTerm();
@@ -47,7 +46,6 @@ export function Main({ SetIsScrollUpButtonVisible }: mainProps) {
       })
         .then(res => { return res.data.results });
       
-      SetPokemonList(fetchData);
       fetchEachPokemon(fetchData).catch((e) => console.log(e));
     }
 
