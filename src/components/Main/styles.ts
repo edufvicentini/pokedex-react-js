@@ -5,7 +5,7 @@ export const Container = styled.main`
 
   .loader {
     position: relative;
-    top: -250x;
+    top: -500px;
     /* height: 10px;
     background-color: aliceblue; */
   }
