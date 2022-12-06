@@ -18,7 +18,7 @@ This is an application that shows every existing pokemon, including their names,
 ---
 ## ⚙️ Functionalities
 - [X] The user can see a list of pokémon
-- [X] The list only load more pokémon when the user scrolls down
+- [X] Infinite Scrolling - The list only load more pokémon when the user scrolls down
 - [X] The user can search for pokémon names or types in the search input
 - [X] The user can select which region/generations to see, the list will load only pokémon from that region
 - [X] When the user scrolls down a bit, a button appears to scroll all the way up
