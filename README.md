@@ -1,5 +1,9 @@
 # React Pokédex
 
+<a href="https://github.com/edufvicentini/pokedex-react-js/blob/master/LICENSE">
+   <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="React Pokédex is released under the MIT license." />
+ </a>
+
 ## 💻 About the project
 This is an application that shows every existing pokemon, including their names, types and images. You can select which generation you want to look, or search for any pokemon or type.
 
