@@ -29,7 +29,7 @@ This is an application that shows every existing pokemon, including their names,
 The layout of the application is available on Figma:
 
 <a href="https://www.figma.com/file/jCTqiRAQbvfWgxqulpfXK9/Pokemon?node-id=108%3A674&t=gloO8MWykEz2BKa4-0">
-  <img alt="Made by Eduardo F. Vicentini" src="https://img.shields.io/badge/Acessar%20Layout%20-Figma-%2304D361">
+  <img alt="Made by Eduardo F. Vicentini" src="https://img.shields.io/badge/Access%20Layout%20-Figma-%2304D361">
 </a>
 
 
