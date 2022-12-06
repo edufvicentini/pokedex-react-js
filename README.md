@@ -12,6 +12,13 @@ This is an application that shows every existing pokemon, including their names,
 
 
 ---
+## ⚙️ Functionalities
+- [X] The user can see a list of pokémon
+- [X] The list only load more pokémon when the user scrolls down
+- [X] The user can search for pokémon names or types in the search input
+- [X] The user can select which region/generations to see, the list will load only pokémon from that region
+- [X] When the user scrolls down a bit, a button appears to scroll all the way up
+- [X] Each type has its own background color and card color
 
 ## 🎨 Layout
 
@@ -87,8 +94,15 @@ The following tools were used in building the project:
 -   Icons:  **[Feather Icons](https://feathericons.com/)**
 -   Fonts:  **[Roboto](https://fonts.google.com/specimen/Roboto)**
 
-### Author
 ---
+
+## ⚙️ Future Features
+- [ ] When the user clicks a pokémon, a modal will appear containing its details and evolution line, showing the conditions to evolve.
+- [ ] Switch that changes between Night-mode and Day-mode
+
+---
+
+## Author
 
 <a href="https://blog.rocketseat.com.br/author/thiago/">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/95220802?s=400&u=55c93f56de0ea7dfee88bfe5d75a8f795ef89f4b&v=4" width="100px;" alt=""/>
